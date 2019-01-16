@@ -1,0 +1,20 @@
+<div class="d-flex m-5">
+  <div class="card m-4" style="width: 18rem;">
+    <img src="https://via.placeholder.com/150" class="img-thumbnail" alt="placeholder">
+    <app-products-detail #prodDetail [event]="event1" (getProductDetails)="getProdDetailwithId($event)"></app-products-detail>
+    <a (click)="prodDetail.parentCallingChild()">Call Child comp</a>
+  </div>
+  <div class="card m-4" style="width: 18rem;">
+    <img src="https://via.placeholder.com/150" class="img-thumbnail" alt="placeholder">
+    <app-products-detail [event]="event1"></app-products-detail>
+  </div>
+  <div class="card m-4" style="width: 18rem;">
+    <img src="https://via.placeholder.com/150" class="img-thumbnail" alt="placeholder">
+    <app-products-detail [event]="event1"></app-products-detail>
+  </div>
+  <div class="card m-4" style="width: 18rem;">
+    <img src="https://via.placeholder.com/150" class="img-thumbnail" alt="placeholder">
+    <app-products-detail [event]="event1"></app-products-detail>
+  </div>
+</div>
+
