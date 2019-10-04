@@ -2,29 +2,55 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { ProductsDetailComponent } from './products-detail/products-detail.component';
 
+import { ProductsService } from '../../shared/products.service';
+
+import { Store, select } from '@ngrx/store'
+
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
 @Component({
-  selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent{
 
-      event1 = {
-        id: 1,
-        name: 'Angular Connect',
-        date: '9/26/2036',
-        time: '10:00 am',
-        price: 599.99,
-        imageUrl: '/assets/images/angularconnect-shield.png',
-        location: {
-          address: '1057 DT',
-          city: 'London',
-          country: 'England'
+  product:any;
+
+  products:any;
+
+  constructor(
+    private store: Store<any>, 
+    private productsService: ProductsService,
+    private router: Router) {}
+
+   ngOnInit() {
+     this.productsService.getProducts().next(products => {
+       this.products = products;
+       console.log('products '+ this.products);
+      });
+
+      this.store.pipe(select('product')).subscribe(
+        products => {
+          if (products) {
+            console.log(products);
+          }
         }
+      )
+   }
+
+   checkChanges(value: boolean): void {
+     this.store.dispatch({
+       type: 'PRODUCT-DISCRIPTION',
+       payload: value
+     })
    }
 
    getProdDetailwithId(id) {
-     console.log('got an id '+ id);
+      //this.product = this.products[id];
+   }
+
+   goToDetail(prodId){
+     this.router.navigate(['user/products/'+ prodId ]);
    }
 
 }
